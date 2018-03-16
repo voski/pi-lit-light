@@ -1,7 +1,7 @@
 import butlerian
 
-_JOB_NAME_ENV = 'pi-lit.job-name'
-_APP_NAME_ENV = 'pi-lit.app-name'
+_JOB_NAME_ENV = 'PI_LIT_JOB_NAME'
+_APP_NAME_ENV = 'PI_LIT_APP_NAME'
 
 
 class MissingParameterException(Exception):
