@@ -21,5 +21,18 @@ if __name__ == '__main__':
 
     jenkins = butlerian.JenkinsApi()
     job = jenkins.get_job(job_name)
-    for build in job.builds:
-        print build
+    if job.builds:
+        build = job.builds[0]
+        if build.building:
+            print 'yellow'  # Change the color to yellow
+            pass
+        elif build.result == 'SUCCESS':
+            print 'green'   # Green
+            #os.system('omxplayer -o local test.mp3')
+            pass
+        elif build.result == 'FAILURE':
+            print 'red'     # Red
+            pass
+    else:
+        # error message
+        pass
