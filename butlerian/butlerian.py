@@ -54,7 +54,7 @@ class Build(object):
             value = param.find('value').text
             self.parameters[key] = value
 
-        self.id = xml_element.find('id').text
+        self.id = int(xml_element.find('id').text)
         self.full_display_name = xml_element.find('fullDisplayName').text
         self.building = xml_element.find('building').text
         self.result = xml_element.find('result').text
