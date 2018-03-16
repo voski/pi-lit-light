@@ -20,9 +20,12 @@ if __name__ == '__main__':
                                         .format(_JOB_NAME_ENV, _APP_NAME_ENV))
 
     jenkins = butlerian.JenkinsApi()
-    job = jenkins.get_job(job_name)
+    job = jenkins.get_job(job_name, app_name)
     if job.builds:
+        # Get most recent build.
         build = job.builds[0]
+        print 'Build:\t', build.full_display_name
+        print 'Status:\t',
         if build.building:
             print 'yellow'  # Change the color to yellow
             pass

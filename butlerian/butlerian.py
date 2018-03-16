@@ -55,6 +55,7 @@ class Build(object):
             self.parameters[key] = value
 
         self.id = int(xml_element.find('id').text)
+        self.timestamp = int(xml_element.find('timestamp').text)
         self.full_display_name = xml_element.find('fullDisplayName').text
         self.building = xml_element.find('building').text == 'true'
         self.result = None
@@ -64,12 +65,12 @@ class Build(object):
             self.result = result.text
 
     def __str__(self):
-        return "Build(id={}, full_display_name={}, building={}, result={})".format(
-            self.id, self.full_display_name, self.building, self.result
+        return "Build(id={}, timestamp={}, full_display_name={}, building={}, result={})".format(
+            self.id, self.timestamp, self.full_display_name, self.building, self.result
         )
 
     def __cmp__(self, other):
-        return -cmp(self.id, other.id)
+        return -cmp(self.timestamp, other.timestamp)
 
 
 class Job(object):
