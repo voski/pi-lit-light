@@ -31,7 +31,7 @@ class JenkinsApi(object):
         # FIXME: might be a way to query based on parameters instead of fullDisplayName?
         return "//fullDisplayName[contains(text(),'{}')]/parent::*".format(app_name)
 
-    def get_job(self, job_name, app_name_filter, depth=2):
+    def get_job(self, job_name, app_name_filter=None, depth=2):
         if app_name_filter:
             params = {'depth': depth, 'xpath': self._get_xpath_expr(app_name_filter),
                       'wrapper': 'appBuilds'}
@@ -57,7 +57,11 @@ class Build(object):
         self.id = int(xml_element.find('id').text)
         self.full_display_name = xml_element.find('fullDisplayName').text
         self.building = xml_element.find('building').text == 'true'
-        self.result = xml_element.find('result').text
+        self.result = None
+
+        result = xml_element.find('result')
+        if result is not None:
+            self.result = result.text
 
     def __str__(self):
         return "Build(id={}, full_display_name={}, building={}, result={})".format(
@@ -65,7 +69,7 @@ class Build(object):
         )
 
     def __cmp__(self, other):
-        return cmp(self.id, other.id)
+        return -cmp(self.id, other.id)
 
 
 class Job(object):
