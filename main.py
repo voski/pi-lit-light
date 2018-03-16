@@ -1,5 +1,6 @@
 import sys
 import butlerian
+import lightcontroller
 
 _JOB_NAME_ENV = 'PI_LIT_JOB_NAME'
 _APP_NAME_ENV = 'PI_LIT_APP_NAME'
