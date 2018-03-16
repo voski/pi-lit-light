@@ -64,6 +64,9 @@ class Build(object):
             self.id, self.full_display_name, self.building, self.result
         )
 
+    def __cmp__(self, other):
+        return cmp(self.id, other.id)
+
 
 class Job(object):
     builds = []
@@ -72,7 +75,7 @@ class Job(object):
         root = ElementTree.fromstring(xml_str)
         for element in root.iter('build'):
             self.builds.append(Build(element))
-            print self.builds[-1]
+        self.builds.sort()
 
     def __str__(self):
         return "Job(builds={})".format([str(e) for e in self.builds])
