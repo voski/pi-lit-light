@@ -13,8 +13,8 @@ class MissingParameterException(Exception):
 if __name__ == '__main__':
     import os
 
-    job_name = os.getenv(_JOB_NAME_ENV)
-    app_name = os.getenv(_APP_NAME_ENV)
+    job_name = os.getenv(_JOB_NAME_ENV, 'build-apps-apk')
+    app_name = os.getenv(_APP_NAME_ENV, 'register')
 
     if not job_name or not app_name:
         raise MissingParameterException("Error: environment variables {} and {} must be set."
@@ -25,17 +25,18 @@ if __name__ == '__main__':
     if job.builds:
         # Get most recent build.
         build = job.builds[0]
-        print 'Build:\t', build.full_display_name
-        print 'Status:\t',
+        print 'Build:\t{}\tbuilding={}\tresult={}'.format(
+            build.full_display_name, build.building, build.result)
+        print 'Color:\t',
         if build.building:
-            print 'yellow'  # Change the color to yellow
+            print 'yellow'  # Change LED color here
             pass
         elif build.result == 'SUCCESS':
-            print 'green'   # Green
+            print 'green'   # Change LED color here
             #os.system('omxplayer -o local test.mp3')
             pass
         elif build.result == 'FAILURE':
-            print 'red'     # Red
+            print 'red'     # Change LED color here
             pass
     else:
         print 'No build results found'
