@@ -1,3 +1,4 @@
+import sys
 import butlerian
 
 _JOB_NAME_ENV = 'PI_LIT_JOB_NAME'
@@ -37,5 +38,5 @@ if __name__ == '__main__':
             print 'red'     # Red
             pass
     else:
-        # error message
-        pass
+        print 'No build results found'
+        sys.stderr.write(job.get_pretty_xml())

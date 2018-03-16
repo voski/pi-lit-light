@@ -7,6 +7,7 @@ A convenient way to query the Jenkins build status of an app.
 import urllib
 import urllib2
 import xml.etree.ElementTree as ElementTree
+import xml.dom.minidom
 
 # Querying Jenkins XML API:
 # https://stackoverflow.com/questions/38534171/how-to-find-and-query-a-specific-build-in-jenkins-using-the-python-jenkins-api
@@ -77,6 +78,7 @@ class Job(object):
     builds = []
 
     def __init__(self, xml_str):
+        self.xml = xml_str  # Save for debugging.
         root = ElementTree.fromstring(xml_str)
         for element in root.iter('build'):
             self.builds.append(Build(element))
@@ -84,3 +86,7 @@ class Job(object):
 
     def __str__(self):
         return "Job(builds={})".format([str(e) for e in self.builds])
+
+    def get_pretty_xml(self):
+        dom = xml.dom.minidom.parseString(self.xml)
+        return dom.toprettyxml()
